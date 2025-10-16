@@ -1,4 +1,4 @@
-/* === Global Styling === */
+/* === GLOBAL STYLING === */
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +7,19 @@
 }
 
 body {
-  #particle-bg {
+  background: radial-gradient(circle at top left, #001936, #02112a 50%, #00081a);
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* === PARTICLE CANVAS === */
+#particle-bg {
   position: fixed;
   top: 0;
   left: 0;
@@ -17,100 +29,123 @@ body {
   background: linear-gradient(135deg, #00152e, #002f6c);
 }
 
-  background: linear-gradient(135deg, #0a0f2c, #12295a, #0b173d);
-  color: #fff;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
-}
-
-/* === Container === */
-.container {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 40px;
-  width: 400px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+/* === HEADER === */
+header {
   text-align: center;
-  animation: fadeIn 1s ease;
+  margin-bottom: 20px;
+  animation: fadeIn 1.2s ease;
 }
 
-.container h1 {
-  font-size: 1.8rem;
-  margin-bottom: 15px;
+header h1 {
+  font-size: 2rem;
+  color: #00eaff;
+  text-shadow: 0 0 20px #00c6ff, 0 0 40px #0088ff;
   letter-spacing: 1px;
+}
+
+header p {
+  font-size: 1rem;
+  color: #c8e3ff;
+  opacity: 0.85;
+  margin-top: 8px;
+}
+
+/* === CONTAINER (CALCULATOR BOX) === */
+.calculator {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 18px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 25px rgba(0, 170, 255, 0.3);
+  padding: 35px;
+  width: 380px;
+  text-align: center;
+  animation: slideIn 1.2s ease;
+  transition: all 0.3s ease;
+}
+
+.calculator:hover {
+  box-shadow: 0 0 35px rgba(0, 200, 255, 0.45);
+  transform: translateY(-5px);
+}
+
+.calculator h2 {
   color: #00d9ff;
-  text-shadow: 0 0 15px #00d9ff;
+  font-size: 1.4rem;
+  text-shadow: 0 0 10px #00baff;
+  margin-bottom: 15px;
 }
 
-.container p {
-  color: #d6e1ff;
-  margin-bottom: 25px;
-  font-size: 0.9rem;
-}
-
-/* === Dropdown & Inputs === */
+/* === INPUT & SELECT === */
 select,
-input,
-textarea {
+input {
   width: 100%;
   padding: 12px 15px;
-  margin: 8px 0;
+  margin: 10px 0;
   border: none;
   border-radius: 10px;
   font-size: 1rem;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(10px);
+  color: #e8f8ff;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
   outline: none;
   transition: all 0.3s ease;
 }
 
 select:hover,
-input:hover,
-textarea:hover {
+input:hover {
   background: rgba(255, 255, 255, 0.25);
 }
 
-/* === Button === */
+select:focus,
+input:focus {
+  box-shadow: 0 0 15px rgba(0, 180, 255, 0.6);
+}
+
+/* === BUTTON === */
 button {
   width: 100%;
-  padding: 12px;
+  padding: 13px;
   background: linear-gradient(90deg, #00c6ff, #0072ff);
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   color: #fff;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
   margin-top: 10px;
-  box-shadow: 0 0 15px rgba(0, 150, 255, 0.5);
-  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 150, 255, 0.4);
+  transition: all 0.3s ease;
 }
 
 button:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(0, 150, 255, 0.8);
+  box-shadow: 0 0 30px rgba(0, 200, 255, 0.7);
 }
 
-/* === Result Display === */
+/* === RESULT === */
 .result {
   margin-top: 25px;
   padding: 15px;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 200, 255, 0.1);
   font-size: 1.1rem;
   color: #a8faff;
-  text-shadow: 0 0 5px #00eaff;
+  text-shadow: 0 0 8px #00eaff;
   letter-spacing: 0.5px;
   animation: fadeIn 0.8s ease;
 }
 
-/* === Animation === */
+/* === FOOTER === */
+footer {
+  margin-top: 30px;
+  font-size: 0.8rem;
+  color: #9fc9ff;
+  text-align: center;
+  opacity: 0.8;
+}
+
+/* === ANIMATIONS === */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -122,11 +157,13 @@ button:hover {
   }
 }
 
-/* === Footer === */
-footer {
-  margin-top: 30px;
-  font-size: 0.8rem;
-  color: #9fc9ff;
-  text-align: center;
-  opacity: 0.8;
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -7,6 +7,16 @@
 }
 
 body {
+  #particle-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(135deg, #00152e, #002f6c);
+}
+
   background: linear-gradient(135deg, #0a0f2c, #12295a, #0b173d);
   color: #fff;
   min-height: 100vh;

@@ -1,26 +1,26 @@
-// === ANIMASI PARTIKEL FUTURISTIK ===
+/* === ANIMASI PARTIKEL FUTURISTIK === */
 const canvas = document.getElementById("particle-bg");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-const particleCount = 100;
-
-for (let i = 0; i < particleCount; i++) {
-  particles.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 2 + 1,
-    dx: (Math.random() - 0.5) * 0.8,
-    dy: (Math.random() - 0.5) * 0.8,
-  });
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
 }
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+const particleCount = 120;
+const particles = Array.from({ length: particleCount }, () => ({
+  x: Math.random() * canvas.width,
+  y: Math.random() * canvas.height,
+  r: Math.random() * 2 + 1,
+  dx: (Math.random() - 0.5) * 0.8,
+  dy: (Math.random() - 0.5) * 0.8,
+}));
 
 function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#00d9ff";
+  ctx.fillStyle = "rgba(0, 217, 255, 0.8)";
   particles.forEach((p) => {
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
@@ -36,128 +36,120 @@ function animateParticles() {
 }
 animateParticles();
 
-// === PHYSICSLAB - Kalkulator Fisika Modern ===
+/* === PHYSICSLAB - Kalkulator Fisika Modern === */
 
-// Ambil elemen HTML
-const formulaSelect = document.getElementById('formulaSelect');
-const inputArea = document.getElementById('inputArea');
-const calculateBtn = document.getElementById('calculateBtn');
-const resultDiv = document.getElementById('result');
+// Elemen utama
+const formulaSelect = document.getElementById("formulaSelect");
+const inputArea = document.getElementById("inputArea");
+const calculateBtn = document.getElementById("calculateBtn");
+const resultDiv = document.getElementById("result");
 
-// Event listener
-formulaSelect.addEventListener('change', showInputs);
-calculateBtn.addEventListener('click', calculate);
+// Event Listener
+formulaSelect.addEventListener("change", showInputs);
+calculateBtn.addEventListener("click", calculate);
 
-// === FUNGSI UNTUK MENAMPILKAN INPUT SESUAI RUMUS ===
+// === Fungsi menampilkan input dinamis ===
 function showInputs() {
   const type = formulaSelect.value;
-  inputArea.innerHTML = '';
-  resultDiv.innerHTML = '';
+  inputArea.innerHTML = "";
+  resultDiv.innerHTML = "";
 
-  switch (type) {
-    case 'glb':
-      inputArea.innerHTML = `
-        <input type="number" id="s" placeholder="Jarak (meter)">
-        <input type="number" id="t" placeholder="Waktu (detik)">
-      `;
-      break;
+  const fields = {
+    glb: ["Jarak (meter)", "Waktu (detik)"],
+    newton: ["Massa (kg)", "Percepatan (m/s²)"],
+    ep: ["Massa (kg)", "Tinggi (meter)"],
+    ek: ["Massa (kg)", "Kecepatan (m/s)"],
+    tekanan: ["Gaya (Newton)", "Luas Permukaan (m²)"],
+    usaha: ["Gaya (Newton)", "Perpindahan (meter)"],
+  };
 
-    case 'newton':
-      inputArea.innerHTML = `
-        <input type="number" id="m" placeholder="Massa (kg)">
-        <input type="number" id="a" placeholder="Percepatan (m/s²)">
-      `;
-      break;
+  if (!fields[type]) {
+    inputArea.innerHTML = `<p>Pilih rumus untuk mulai menghitung.</p>`;
+    return;
+  }
 
-    case 'ep':
-      inputArea.innerHTML = `
-        <input type="number" id="m" placeholder="Massa (kg)">
-        <input type="number" id="h" placeholder="Tinggi (meter)">
-      `;
-      break;
+  // Buat input sesuai rumus
+  inputArea.innerHTML = fields[type]
+    .map(
+      (label, index) =>
+        `<input type="number" id="val${index}" placeholder="${label}" required />`
+    )
+    .join("");
+}
 
-    case 'ek':
-      inputArea.innerHTML = `
-        <input type="number" id="m" placeholder="Massa (kg)">
-        <input type="number" id="v" placeholder="Kecepatan (m/s)">
-      `;
-      break;
+// === Fungsi perhitungan ===
+function calculate() {
+  const type = formulaSelect.value;
+  if (!type) {
+    resultDiv.textContent = "⚠️ Pilih jenis rumus terlebih dahulu!";
+    return;
+  }
 
-    case 'tekanan':
-      inputArea.innerHTML = `
-        <input type="number" id="F" placeholder="Gaya (Newton)">
-        <input type="number" id="A" placeholder="Luas Permukaan (m²)">
-      `;
-      break;
+  const get = (id) => parseFloat(document.getElementById(id)?.value || 0);
+  let result = 0;
 
-    case 'usaha':
-      inputArea.innerHTML = `
-        <input type="number" id="F" placeholder="Gaya (Newton)">
-        <input type="number" id="s" placeholder="Perpindahan (meter)">
-      `;
-      break;
+  try {
+    switch (type) {
+      case "glb": {
+        const s = get("val0"), t = get("val1");
+        if (t <= 0) throw "Waktu tidak boleh nol!";
+        result = s / t;
+        showResult(`Kecepatan = ${result.toFixed(2)} m/s`);
+        break;
+      }
 
-    default:
-      inputArea.innerHTML = `<p>Pilih rumus untuk mulai menghitung.</p>`;
+      case "newton": {
+        const m = get("val0"), a = get("val1");
+        result = m * a;
+        showResult(`Gaya = ${result.toFixed(2)} N`);
+        break;
+      }
+
+      case "ep": {
+        const m = get("val0"), h = get("val1");
+        result = m * 9.8 * h;
+        showResult(`Energi Potensial = ${result.toFixed(2)} J`);
+        break;
+      }
+
+      case "ek": {
+        const m = get("val0"), v = get("val1");
+        result = 0.5 * m * v ** 2;
+        showResult(`Energi Kinetik = ${result.toFixed(2)} J`);
+        break;
+      }
+
+      case "tekanan": {
+        const F = get("val0"), A = get("val1");
+        if (A <= 0) throw "Luas tidak boleh nol!";
+        result = F / A;
+        showResult(`Tekanan = ${result.toFixed(2)} Pa`);
+        break;
+      }
+
+      case "usaha": {
+        const F = get("val0"), s = get("val1");
+        result = F * s;
+        showResult(`Usaha = ${result.toFixed(2)} J`);
+        break;
+      }
+
+      default:
+        showResult("⚠️ Pilih jenis perhitungan terlebih dahulu.");
+    }
+  } catch (err) {
+    showResult(`❌ Error: ${err}`);
   }
 }
 
-// === FUNGSI UNTUK MENGHITUNG HASIL ===
-function calculate() {
-  const type = formulaSelect.value;
-  let result = 0;
-
-  switch (type) {
-    case 'glb':
-      const s = parseFloat(document.getElementById('s').value);
-      const t = parseFloat(document.getElementById('t').value);
-      if (t === 0 || isNaN(s) || isNaN(t)) {
-        resultDiv.textContent = "Masukkan nilai yang benar.";
-        return;
-      }
-      result = s / t;
-      resultDiv.textContent = `Kecepatan = ${result.toFixed(2)} m/s`;
-      break;
-
-    case 'newton':
-      const m1 = parseFloat(document.getElementById('m').value);
-      const a = parseFloat(document.getElementById('a').value);
-      result = m1 * a;
-      resultDiv.textContent = `Gaya = ${result.toFixed(2)} N`;
-      break;
-
-    case 'ep':
-      const m2 = parseFloat(document.getElementById('m').value);
-      const h = parseFloat(document.getElementById('h').value);
-      result = m2 * 9.8 * h;
-      resultDiv.textContent = `Energi Potensial = ${result.toFixed(2)} J`;
-      break;
-
-    case 'ek':
-      const m3 = parseFloat(document.getElementById('m').value);
-      const v = parseFloat(document.getElementById('v').value);
-      result = 0.5 * m3 * v ** 2;
-      resultDiv.textContent = `Energi Kinetik = ${result.toFixed(2)} J`;
-      break;
-
-    case 'tekanan':
-      const F = parseFloat(document.getElementById('F').value);
-      const A = parseFloat(document.getElementById('A').value);
-      result = F / A;
-      resultDiv.textContent = `Tekanan = ${result.toFixed(2)} Pa`;
-      break;
-
-    case 'usaha':
-      const F2 = parseFloat(document.getElementById('F').value);
-      const s2 = parseFloat(document.getElementById('s').value);
-      result = F2 * s2;
-      resultDiv.textContent = `Usaha = ${result.toFixed(2)} J`;
-      break;
-
-    default:
-      resultDiv.textContent = 'Silakan pilih rumus terlebih dahulu.';
-  }
-
-  // Animasi hasil
-  resultDiv.style.animation = 'fadeIn 0.6s ease-in';
+// === Fungsi animasi hasil ===
+function showResult(text) {
+  resultDiv.textContent = text;
+  resultDiv.style.opacity = 0;
+  resultDiv.style.transform = "translateY(10px)";
+  setTimeout(() => {
+    resultDiv.style.transition = "all 0.6s ease";
+    resultDiv.style.opacity = 1;
+    resultDiv.style.transform = "translateY(0)";
+  }, 50);
 }

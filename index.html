@@ -7,36 +7,45 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <!-- Background Animasi Partikel -->
   <canvas id="particle-bg"></canvas>
-  <header>
-    <h1>⚛️ PhysicsLab - Kalkulator Fisika</h1>
-    <p>Hitung berbagai rumus fisika dengan tampilan modern</p>
-  </header>
 
-  <main>
-    <section class="calculator">
-      <h2>Pilih Jenis Perhitungan</h2>
-      <select id="formulaSelect">
-        <option value="">-- Pilih Rumus --</option>
-        <option value="glb">Gerak Lurus Beraturan (GLB)</option>
-        <option value="newton">Gaya (Hukum II Newton)</option>
-        <option value="ep">Energi Potensial</option>
-        <option value="ek">Energi Kinetik</option>
-        <option value="tekanan">Tekanan</option>
-        <option value="usaha">Usaha</option>
-      </select>
+  <!-- Wrapper untuk konten utama -->
+  <div class="container">
+    <header>
+      <h1>⚛️ PhysicsLab - Kalkulator Fisika</h1>
+      <p>Hitung berbagai rumus fisika dengan tampilan modern dan interaktif</p>
+    </header>
 
-      <div id="inputArea"></div>
-      <button id="calculateBtn">Hitung</button>
+    <main>
+      <section class="calculator">
+        <h2>Pilih Jenis Perhitungan</h2>
+        <select id="formulaSelect">
+          <option value="">-- Pilih Rumus --</option>
+          <option value="glb">Gerak Lurus Beraturan (GLB)</option>
+          <option value="newton">Gaya (Hukum II Newton)</option>
+          <option value="ep">Energi Potensial</option>
+          <option value="ek">Energi Kinetik</option>
+          <option value="tekanan">Tekanan</option>
+          <option value="usaha">Usaha</option>
+        </select>
 
-      <div id="result" class="result"></div>
-    </section>
-  </main>
+        <!-- Area input otomatis berubah sesuai rumus -->
+        <div id="inputArea"></div>
 
-  <footer>
-    <p>© 2025 PhysicsLab </p>
-  </footer>
+        <button id="calculateBtn">Hitung</button>
 
+        <!-- Hasil perhitungan -->
+        <div id="result" class="result"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2025 <strong>PhysicsLab</strong> | Dibuat dengan ❤️ oleh Novi</p>
+    </footer>
+  </div>
+
+  <!-- JavaScript -->
   <script src="script.js"></script>
 </body>
 </html>

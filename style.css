@@ -8,17 +8,18 @@
 
 body {
   background: radial-gradient(circle at top left, #001936, #02112a 50%, #00081a);
-  color: #fff;
-  min-height: 100vh;
+  color: #b3e8ff; /* font biru muda lembut */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   position: relative;
+  text-align: center;
 }
 
-/* === PARTICLE CANVAS === */
+/* === PARTICLE BACKGROUND === */
 #particle-bg {
   position: fixed;
   top: 0;
@@ -32,48 +33,48 @@ body {
 /* === HEADER === */
 header {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   animation: fadeIn 1.2s ease;
 }
 
 header h1 {
   font-size: 2rem;
-  color: #00eaff;
-  text-shadow: 0 0 20px #00c6ff, 0 0 40px #0088ff;
+  color: #5fe0ff; /* biru muda */
+  text-shadow: 0 0 15px #00c6ff, 0 0 30px #0090ff;
   letter-spacing: 1px;
 }
 
 header p {
   font-size: 1rem;
-  color: #c8e3ff;
-  opacity: 0.85;
+  color: #aee8ff;
+  opacity: 0.9;
   margin-top: 8px;
 }
 
 /* === CONTAINER (CALCULATOR BOX) === */
 .calculator {
   background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 18px;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 0 25px rgba(0, 170, 255, 0.3);
-  padding: 35px;
-  width: 380px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  backdrop-filter: blur(25px);
+  box-shadow: 0 0 25px rgba(0, 200, 255, 0.35);
+  padding: 40px;
+  width: 400px;
   text-align: center;
   animation: slideIn 1.2s ease;
   transition: all 0.3s ease;
 }
 
 .calculator:hover {
-  box-shadow: 0 0 35px rgba(0, 200, 255, 0.45);
+  box-shadow: 0 0 40px rgba(0, 220, 255, 0.5);
   transform: translateY(-5px);
 }
 
 .calculator h2 {
-  color: #00d9ff;
+  color: #5fe0ff;
   font-size: 1.4rem;
   text-shadow: 0 0 10px #00baff;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 /* === INPUT & SELECT === */
@@ -85,9 +86,9 @@ input {
   border: none;
   border-radius: 10px;
   font-size: 1rem;
-  color: #e8f8ff;
+  color: #b3e8ff;
   background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
   outline: none;
   transition: all 0.3s ease;
 }
@@ -99,7 +100,7 @@ input:hover {
 
 select:focus,
 input:focus {
-  box-shadow: 0 0 15px rgba(0, 180, 255, 0.6);
+  box-shadow: 0 0 20px rgba(0, 200, 255, 0.5);
 }
 
 /* === BUTTON === */
@@ -109,29 +110,29 @@ button {
   background: linear-gradient(90deg, #00c6ff, #0072ff);
   border: none;
   border-radius: 12px;
-  color: #fff;
+  color: #e6f9ff;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 15px;
   box-shadow: 0 0 20px rgba(0, 150, 255, 0.4);
   transition: all 0.3s ease;
 }
 
 button:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 30px rgba(0, 200, 255, 0.7);
+  box-shadow: 0 0 35px rgba(0, 200, 255, 0.7);
 }
 
 /* === RESULT === */
 .result {
   margin-top: 25px;
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 12px;
   background: rgba(0, 200, 255, 0.1);
   font-size: 1.1rem;
   color: #a8faff;
-  text-shadow: 0 0 8px #00eaff;
+  text-shadow: 0 0 6px #00eaff;
   letter-spacing: 0.5px;
   animation: fadeIn 0.8s ease;
 }
@@ -140,7 +141,7 @@ button:hover {
 footer {
   margin-top: 30px;
   font-size: 0.8rem;
-  color: #9fc9ff;
+  color: #8fd7ff;
   text-align: center;
   opacity: 0.8;
 }
@@ -165,5 +166,17 @@ footer {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 480px) {
+  .calculator {
+    width: 90%;
+    padding: 25px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
   }
 }

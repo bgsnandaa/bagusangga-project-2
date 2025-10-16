@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhysicsLab - Kalkulator Fisika</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>⚛️ PhysicsLab - Kalkulator Fisika</h1>
+    <p>Hitung berbagai rumus fisika dengan tampilan modern</p>
+  </header>
+
+  <main>
+    <section class="calculator">
+      <h2>Pilih Jenis Perhitungan</h2>
+      <select id="formulaSelect">
+        <option value="">-- Pilih Rumus --</option>
+        <option value="glb">Gerak Lurus Beraturan (GLB)</option>
+        <option value="newton">Gaya (Hukum II Newton)</option>
+        <option value="ep">Energi Potensial</option>
+        <option value="ek">Energi Kinetik</option>
+        <option value="tekanan">Tekanan</option>
+        <option value="usaha">Usaha</option>
+      </select>
+
+      <div id="inputArea"></div>
+      <button id="calculateBtn">Hitung</button>
+
+      <div id="result" class="result"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 PhysicsLab | Dibuat dengan ❤️ oleh Novi</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

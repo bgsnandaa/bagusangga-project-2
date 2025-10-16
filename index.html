@@ -7,20 +7,22 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Background Animasi Partikel -->
-  <canvas id="particle-bg"></canvas>
+  <!-- Background Animasi Partikel (pastikan di style.css #particle-bg z-index:-1) -->
+  <canvas id="particle-bg" aria-hidden="true"></canvas>
 
   <!-- Wrapper untuk konten utama -->
-  <div class="container">
+  <div class="container" role="application" aria-labelledby="app-title">
     <header>
-      <h1>⚛️ PhysicsLab - Kalkulator Fisika</h1>
+      <h1 id="app-title">⚛️ PhysicsLab - Kalkulator Fisika</h1>
       <p>Hitung berbagai rumus fisika dengan tampilan modern dan interaktif</p>
     </header>
 
     <main>
-      <section class="calculator">
+      <section class="calculator" aria-label="Kalkulator Fisika">
         <h2>Pilih Jenis Perhitungan</h2>
-        <select id="formulaSelect">
+
+        <label for="formulaSelect" class="visually-hidden">Pilih Rumus</label>
+        <select id="formulaSelect" name="formulaSelect">
           <option value="">-- Pilih Rumus --</option>
           <option value="glb">Gerak Lurus Beraturan (GLB)</option>
           <option value="newton">Gaya (Hukum II Newton)</option>
@@ -31,21 +33,21 @@
         </select>
 
         <!-- Area input otomatis berubah sesuai rumus -->
-        <div id="inputArea"></div>
+        <div id="inputArea" aria-live="polite"></div>
 
-        <button id="calculateBtn">Hitung</button>
+        <button id="calculateBtn" type="button">Hitung</button>
 
         <!-- Hasil perhitungan -->
-        <div id="result" class="result"></div>
+        <div id="result" class="result" aria-live="polite"></div>
       </section>
     </main>
 
     <footer>
-      <p>© 2025 <strong>PhysicsLab </strong> </p>
+      <p>© 2025 <strong>PhysicsLab</strong></p>
     </footer>
   </div>
 
-  <!-- JavaScript -->
-  <script src="script.js"></script>
+  <!-- JavaScript (defer agar dijalankan setelah DOM siap) -->
+  <script src="script.js" defer></script>
 </body>
 </html>

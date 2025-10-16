@@ -1,117 +1,122 @@
-/* === STYLE UNTUK PHYSICSLAB === */
-
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-body {
-  font-family: 'Poppins', sans-serif;
+/* === Global Styling === */
+* {
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #0077b6, #90e0ef);
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0a0f2c, #12295a, #0b173d);
   color: #fff;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
-}
-
-header {
-  text-align: center;
-  padding: 2rem;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-}
-
-header h1 {
-  margin: 0;
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-header p {
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  opacity: 0.9;
-}
-
-main {
-  flex: 1;
-  display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 40px;
 }
 
-.calculator {
-  background: rgba(255, 255, 255, 0.15);
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-  width: 90%;
-  max-width: 450px;
+/* === Container === */
+.container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 40px;
+  width: 400px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
   text-align: center;
-  backdrop-filter: blur(10px);
+  animation: fadeIn 1s ease;
 }
 
-.calculator h2 {
-  margin-bottom: 1rem;
-  font-weight: 600;
+.container h1 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  color: #00d9ff;
+  text-shadow: 0 0 15px #00d9ff;
 }
 
-select, input, button {
+.container p {
+  color: #d6e1ff;
+  margin-bottom: 25px;
+  font-size: 0.9rem;
+}
+
+/* === Dropdown & Inputs === */
+select,
+input,
+textarea {
   width: 100%;
-  margin: 0.5rem 0;
-  padding: 0.8rem;
-  border-radius: 0.5rem;
+  padding: 12px 15px;
+  margin: 8px 0;
   border: none;
+  border-radius: 10px;
   font-size: 1rem;
-  outline: none;
-}
-
-select, input {
-  background: rgba(255, 255, 255, 0.8);
-  color: #000;
-}
-
-button {
-  background-color: #03045e;
   color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+select:hover,
+input:hover,
+textarea:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* === Button === */
+button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
   cursor: pointer;
-  transition: transform 0.2s, background 0.3s;
+  margin-top: 10px;
+  box-shadow: 0 0 15px rgba(0, 150, 255, 0.5);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 button:hover {
-  background-color: #023e8a;
-  transform: scale(1.03);
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(0, 150, 255, 0.8);
 }
 
+/* === Result Display === */
 .result {
-  margin-top: 1rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #fff;
-  animation: fadeIn 0.5s ease-in;
+  margin-top: 25px;
+  padding: 15px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: 1.1rem;
+  color: #a8faff;
+  text-shadow: 0 0 5px #00eaff;
+  letter-spacing: 0.5px;
+  animation: fadeIn 0.8s ease;
 }
 
-footer {
-  text-align: center;
-  padding: 1rem;
-  background: rgba(0, 0, 0, 0.3);
-  font-size: 0.9rem;
-  backdrop-filter: blur(10px);
-}
-
-/* Animasi halus */
+/* === Animation === */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Responsif untuk layar kecil */
-@media (max-width: 480px) {
-  .calculator {
-    padding: 1.5rem;
-  }
-
-  header h1 {
-    font-size: 1.5rem;
-  }
+/* === Footer === */
+footer {
+  margin-top: 30px;
+  font-size: 0.8rem;
+  color: #9fc9ff;
+  text-align: center;
+  opacity: 0.8;
 }

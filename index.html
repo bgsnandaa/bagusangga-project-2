@@ -3,14 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PhysicsLab - Kalkulator Fisika</title>
+  <title>⚛️ PhysicsLab - Kalkulator Fisika</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
-  <!-- Background Animasi Partikel (pastikan di style.css #particle-bg z-index:-1) -->
+  <!-- Latar Belakang Animasi Partikel -->
   <canvas id="particle-bg" aria-hidden="true"></canvas>
 
-  <!-- Wrapper untuk konten utama -->
+  <!-- Kontainer Utama -->
   <div class="container" role="application" aria-labelledby="app-title">
     <header>
       <h1 id="app-title">⚛️ PhysicsLab - Kalkulator Fisika</h1>
@@ -20,7 +24,8 @@
       <section class="calculator" aria-label="Kalkulator Fisika">
         <h2>Pilih Jenis Perhitungan</h2>
 
-        <label for="formulaSelect" class="visually-hidden">Pilih Rumus</label>
+        <!-- Dropdown Pilihan Rumus -->
+        <label for="formulaSelect" class="visually-hidden">Pilih Rumus Fisika</label>
         <select id="formulaSelect" name="formulaSelect">
           <option value="">-- Pilih Rumus --</option>
           <option value="glb">Gerak Lurus Beraturan (GLB)</option>
@@ -31,22 +36,23 @@
           <option value="usaha">Usaha</option>
         </select>
 
-        <!-- Area input otomatis berubah sesuai rumus -->
+        <!-- Area Input -->
         <div id="inputArea" aria-live="polite"></div>
 
+        <!-- Tombol Hitung -->
         <button id="calculateBtn" type="button">Hitung</button>
 
-        <!-- Hasil perhitungan -->
+        <!-- Hasil Perhitungan -->
         <div id="result" class="result" aria-live="polite"></div>
       </section>
     </main>
 
     <footer>
-      <p>© 2025 <strong>PhysicsLab</strong></p>
+      <p>© 2025 <strong>PhysicsLab</strong> — Dibuat dengan ❤️ oleh Novi</p>
     </footer>
   </div>
 
-  <!-- JavaScript (defer agar dijalankan setelah DOM siap) -->
+  <!-- JavaScript -->
   <script src="script.js" defer></script>
 </body>
 </html>

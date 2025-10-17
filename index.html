@@ -4,34 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>⚛️ PhysicsLab - Kalkulator Fisika</title>
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
-
-  <!-- Link ke file CSS -->
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- Halaman Awal -->
-  <div class="container" id="startScreen">
-    <h1>⚛️ Selamat Datang di PhysicsLab</h1>
-    <p>Kalkulator Fisika Interaktif untuk Pelajar dan Mahasiswa</p>
-
-    <ul>
-      <li>✅ Hitung Gerak Lurus (GLB)</li>
-      <li>✅ Gunakan Hukum Newton</li>
-      <li>✅ Hitung Energi Kinetik & Potensial</li>
-      <li>✅ Hitung Usaha & Tekanan</li>
-    </ul>
-
-    <button class="start-button" onclick="showCalculator()">Mulai Sekarang</button>
-  </div>
-
-  <!-- Kalkulator Fisika -->
-  <div class="container hidden" id="calculatorSection" role="application" aria-labelledby="app-title">
+  <div class="container" role="application" aria-labelledby="app-title">
     <header>
       <h1 id="app-title">⚛️ PhysicsLab - Kalkulator Fisika</h1>
     </header>
@@ -39,8 +16,6 @@
     <main>
       <h2>Pilih Jenis Perhitungan</h2>
 
-      <!-- Dropdown Pilihan Rumus -->
-      <label for="formulaSelect" class="visually-hidden">Pilih Rumus Fisika</label>
       <select id="formulaSelect" name="formulaSelect">
         <option value="">-- Pilih Rumus --</option>
         <option value="glb">Gerak Lurus Beraturan (GLB)</option>
@@ -51,21 +26,18 @@
         <option value="usaha">Usaha</option>
       </select>
 
-      <!-- Area Input -->
       <div id="inputArea" aria-live="polite"></div>
 
-      <!-- Tombol Hitung -->
       <button id="calculateBtn" type="button">Hitung</button>
 
-      <!-- Hasil Perhitungan -->
       <div id="result" class="result" aria-live="polite"></div>
     </main>
+
+    <footer>
+      <p>© 2025 <strong>PhysicsLab</strong> - Belajar Fisika Jadi Mudah</p>
+    </footer>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <p>© 2025 <strong>PhysicsLab</strong> - Belajar Fisika Jadi Mudah</p>
-  </footer>
-
+  <script src="script.js" defer></script>
 </body>
 </html>

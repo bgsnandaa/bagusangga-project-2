@@ -1,106 +1,122 @@
-// Tampilkan Kalkulator saat tombol "Mulai" ditekan
-function showCalculator() {
-  document.getElementById('startScreen').classList.add('hidden');
-  document.getElementById('calculatorSection').classList.remove('hidden');
+// ==== DARK MODE TOGGLE ====
+
+const toggleDarkMode = () => {
+  document.body.classList.toggle('dark-mode');
+  const isDark = document.body.classList.contains('dark-mode');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Load theme from localStorage
+  const theme = localStorage.getItem('theme');
+  if (theme === 'dark') document.body.classList.add('dark-mode');
+
+  // Add dark mode toggle button
+  const btn = document.createElement('button');
+  btn.textContent = '🌓 Mode';
+  btn.id = 'darkToggle';
+  btn.className = 'dark-toggle';
+  btn.addEventListener('click', () => {
+    toggleDarkMode();
+    playClickSound();
+  });
+  document.body.appendChild(btn);
+});
+
+// ==== EFEK SUARA TOMBOL ====
+
+const clickSound = new Audio('click.mp3');
+clickSound.volume = 0.2;
+
+function playClickSound() {
+  clickSound.currentTime = 0;
+  clickSound.play();
 }
 
-// Tampilkan input sesuai rumus yang dipilih
-document.getElementById('formulaSelect').addEventListener('change', function () {
-  const selected = this.value;
-  const inputArea = document.getElementById('inputArea');
-  inputArea.innerHTML = '';
-
-  switch (selected) {
-    case 'ep':
-      inputArea.innerHTML = `
-        <input type="number" id="massa" placeholder="Massa (kg)" />
-        <input type="number" id="gravitasi" placeholder="Gravitasi (m/s²)" value="9.8" />
-        <input type="number" id="tinggi" placeholder="Tinggi (m)" />
-      `;
-      break;
-
-    case 'ek':
-      inputArea.innerHTML = `
-        <input type="number" id="massa" placeholder="Massa (kg)" />
-        <input type="number" id="kecepatan" placeholder="Kecepatan (m/s)" />
-      `;
-      break;
-
-    case 'newton':
-      inputArea.innerHTML = `
-        <input type="number" id="massa" placeholder="Massa (kg)" />
-        <input type="number" id="percepatan" placeholder="Percepatan (m/s²)" />
-      `;
-      break;
-
-    case 'glb':
-      inputArea.innerHTML = `
-        <input type="number" id="kecepatan" placeholder="Kecepatan (m/s)" />
-        <input type="number" id="waktu" placeholder="Waktu (s)" />
-      `;
-      break;
-
-    case 'tekanan':
-      inputArea.innerHTML = `
-        <input type="number" id="gaya" placeholder="Gaya (N)" />
-        <input type="number" id="luas" placeholder="Luas (m²)" />
-      `;
-      break;
-
-    case 'usaha':
-      inputArea.innerHTML = `
-        <input type="number" id="gaya" placeholder="Gaya (N)" />
-        <input type="number" id="jarak" placeholder="Jarak (m)" />
-      `;
-      break;
+// Tambahkan efek suara ke semua tombol
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'BUTTON' || e.target.classList.contains('start-button')) {
+    playClickSound();
   }
 });
 
-// Fungsi bantu untuk ambil nilai input
-function getValue(id) {
-  return parseFloat(document.getElementById(id)?.value) || 0;
-}
+// ==== KALKULATOR FISIKA ====
 
-// Kalkulasi saat tombol "Hitung" ditekan
-document.getElementById('calculateBtn').addEventListener('click', function () {
-  const selected = document.getElementById('formulaSelect').value;
+document.addEventListener('DOMContentLoaded', () => {
+  const select = document.getElementById('formulaSelect');
+  const inputArea = document.getElementById('inputArea');
+  const calculateBtn = document.getElementById('calculateBtn');
   const result = document.getElementById('result');
-  let output = '';
 
-  switch (selected) {
-    case 'ep':
-      const ep = getValue('massa') * getValue('gravitasi') * getValue('tinggi');
-      output = `Energi Potensial = ${ep.toFixed(2)} Joule`;
-      break;
+  if (!select || !inputArea || !calculateBtn || !result) return;
 
-    case 'ek':
-      const ek = 0.5 * getValue('massa') * Math.pow(getValue('kecepatan'), 2);
-      output = `Energi Kinetik = ${ek.toFixed(2)} Joule`;
-      break;
+  select.addEventListener('change', function () {
+    const selected = this.value;
+    inputArea.innerHTML = '';
 
-    case 'newton':
-      const f = getValue('massa') * getValue('percepatan');
-      output = `Gaya = ${f.toFixed(2)} Newton`;
-      break;
+    const inputs = {
+      ep: ['massa', 'gravitasi', 'tinggi'],
+      ek: ['massa', 'kecepatan'],
+      newton: ['massa', 'percepatan'],
+      glb: ['kecepatan', 'waktu'],
+      tekanan: ['gaya', 'luas'],
+      usaha: ['gaya', 'jarak']
+    };
 
-    case 'glb':
-      const s = getValue('kecepatan') * getValue('waktu');
-      output = `Jarak = ${s.toFixed(2)} meter`;
-      break;
+    const placeholders = {
+      massa: 'Massa (kg)',
+      gravitasi: 'Gravitasi (m/s²)',
+      tinggi: 'Tinggi (m)',
+      kecepatan: 'Kecepatan (m/s)',
+      percepatan: 'Percepatan (m/s²)',
+      waktu: 'Waktu (s)',
+      gaya: 'Gaya (N)',
+      luas: 'Luas (m²)',
+      jarak: 'Jarak (m)'
+    };
 
-    case 'tekanan':
-      const p = getValue('gaya') / getValue('luas');
-      output = `Tekanan = ${p.toFixed(2)} Pascal`;
-      break;
+    if (inputs[selected]) {
+      inputs[selected].forEach(id => {
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.id = id;
+        input.placeholder = placeholders[id];
+        inputArea.appendChild(input);
+      });
+    }
+  });
 
-    case 'usaha':
-      const w = getValue('gaya') * getValue('jarak');
-      output = `Usaha = ${w.toFixed(2)} Joule`;
-      break;
-
-    default:
-      output = 'Silakan pilih rumus dan masukkan data.';
+  function getVal(id) {
+    return parseFloat(document.getElementById(id)?.value) || 0;
   }
 
-  result.textContent = output;
+  calculateBtn.addEventListener('click', () => {
+    const formula = select.value;
+    let output = '';
+
+    switch (formula) {
+      case 'ep':
+        output = `Energi Potensial = ${(getVal('massa') * getVal('gravitasi') * getVal('tinggi')).toFixed(2)} J`;
+        break;
+      case 'ek':
+        output = `Energi Kinetik = ${(0.5 * getVal('massa') * getVal('kecepatan') ** 2).toFixed(2)} J`;
+        break;
+      case 'newton':
+        output = `Gaya = ${(getVal('massa') * getVal('percepatan')).toFixed(2)} N`;
+        break;
+      case 'glb':
+        output = `Jarak = ${(getVal('kecepatan') * getVal('waktu')).toFixed(2)} m`;
+        break;
+      case 'tekanan':
+        output = `Tekanan = ${(getVal('gaya') / getVal('luas')).toFixed(2)} Pa`;
+        break;
+      case 'usaha':
+        output = `Usaha = ${(getVal('gaya') * getVal('jarak')).toFixed(2)} J`;
+        break;
+      default:
+        output = 'Silakan pilih dan isi rumus.';
+    }
+
+    result.textContent = output;
+  });
 });

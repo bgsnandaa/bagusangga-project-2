@@ -8,12 +8,20 @@
 html, body {
   height: 100%;
   font-family: 'Poppins', sans-serif;
-  background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
+  background: linear-gradient(135deg, #0d0d0d, #000000);
   color: #ffffff;
   overflow-x: hidden;
+  background-size: 400% 400%;
+  animation: backgroundShift 30s ease infinite;
 }
 
-/* ====== Container Layout ====== */
+@keyframes backgroundShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Container Layout */
 .container {
   max-width: 800px;
   margin: auto;
@@ -21,12 +29,21 @@ html, body {
   text-align: center;
 }
 
-/* ====== Headings ====== */
+/* Headings */
 h1 {
   font-size: 2.8rem;
   margin-bottom: 10px;
   color: #00ffe7;
-  text-shadow: 0 0 15px rgba(0, 255, 231, 0.6);
+  text-shadow: 0 0 20px rgba(0, 255, 231, 0.7);
+  animation: neonPulse 3s infinite ease-in-out;
+}
+@keyframes neonPulse {
+  0%, 100% {
+    text-shadow: 0 0 15px #00ffe7, 0 0 30px #00ffe7, 0 0 45px #00ffe7;
+  }
+  50% {
+    text-shadow: 0 0 5px #00ffe7, 0 0 15px #00ffe7;
+  }
 }
 
 h2 {
@@ -36,14 +53,14 @@ h2 {
   color: #ffffff;
 }
 
-/* ====== Paragraph ====== */
+/* Paragraph */
 p {
   font-size: 1.2rem;
   margin-bottom: 25px;
   color: #e0f7fa;
 }
 
-/* ====== List (di halaman mulai) ====== */
+/* List (halaman mulai) */
 ul {
   list-style: none;
   padding: 0;
@@ -62,9 +79,10 @@ ul li {
   border-left: 4px solid #00ffe7;
 }
 
-/* ====== Button Style ====== */
+/* Button Style */
 .start-button,
-#calculateBtn {
+#calculateBtn,
+.dark-toggle {
   background: linear-gradient(90deg, #00ffe7, #007cf0);
   color: #000;
   font-weight: bold;
@@ -75,16 +93,18 @@ ul li {
   font-size: 1rem;
   margin-top: 20px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 255, 231, 0.4);
+  box-shadow: 0 0 15px rgba(0, 255, 231, 0.6);
+  position: relative;
+  z-index: 1;
 }
-
 .start-button:hover,
-#calculateBtn:hover {
+#calculateBtn:hover,
+.dark-toggle:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 25px rgba(0, 255, 231, 0.6);
+  box-shadow: 0 0 25px rgba(0, 255, 231, 0.9);
 }
 
-/* ====== Input & Select Style ====== */
+/* Input & Select */
 select,
 input {
   padding: 12px;
@@ -94,28 +114,28 @@ input {
   border: 2px solid #00ffe7;
   border-radius: 10px;
   font-size: 1rem;
-  background-color: #0c1e2c;
+  background-color: #101820;
   color: #ffffff;
   outline: none;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 select:focus,
 input:focus {
   border-color: #00c3ff;
-  box-shadow: 0 0 8px rgba(0, 195, 255, 0.5);
+  box-shadow: 0 0 12px rgba(0, 195, 255, 0.6);
 }
 
-/* ====== Result Box ====== */
+/* Result Box */
 .result {
   margin-top: 25px;
   font-size: 1.2rem;
   font-weight: bold;
   color: #00ffe7;
-  text-shadow: 0 0 5px rgba(0, 255, 231, 0.4);
+  text-shadow: 0 0 8px rgba(0, 255, 231, 0.6);
 }
 
-/* ====== Footer ====== */
+/* Footer */
 footer {
   margin-top: 60px;
   font-size: 0.9rem;
@@ -123,28 +143,55 @@ footer {
   text-align: center;
 }
 
-/* ====== Utility Classes ====== */
+/* Dark Toggle Button */
+.dark-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
+/* Canvas partikel */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+/* Utility */
 .hidden {
   display: none;
 }
 
-/* ====== Responsive ====== */
+/* Responsive */
 @media (max-width: 600px) {
-  h1 {
-    font-size: 2.2rem;
-  }
-
-  h2 {
-    font-size: 1.3rem;
-  }
-
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.3rem; }
   .start-button,
-  #calculateBtn {
+  #calculateBtn,
+  .dark-toggle {
     width: 100%;
   }
+  select, input {
+    width: 100%;
+  }
+}
 
-  select,
-  input {
-    width: 100%;
-  }
+/* Dark Mode Overrides */
+body.dark-mode {
+  background: #000000;
+  color: #cccccc;
+}
+body.dark-mode h1 {
+  color: #55ffff;
+}
+body.dark-mode input,
+body.dark-mode select {
+  background-color: #1c1c2e;
+  color: #ffffff;
+  border-color: #55ffff;
 }

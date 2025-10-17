@@ -1,17 +1,18 @@
-// ==== DARK MODE TOGGLE ====
-
-const toggleDarkMode = () => {
+// ===== DARK MODE & TOGGLE =====
+function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
   const isDark = document.body.classList.contains('dark-mode');
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
-};
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Load theme from localStorage
+  // Muat preferensi tema
   const theme = localStorage.getItem('theme');
-  if (theme === 'dark') document.body.classList.add('dark-mode');
+  if (theme === 'dark') {
+    document.body.classList.add('dark-mode');
+  }
 
-  // Add dark mode toggle button
+  // Tambah tombol toggle dark mode
   const btn = document.createElement('button');
   btn.textContent = '🌓 Mode';
   btn.id = 'darkToggle';
@@ -21,102 +22,102 @@ document.addEventListener('DOMContentLoaded', () => {
     playClickSound();
   });
   document.body.appendChild(btn);
-});
 
-// ==== EFEK SUARA TOMBOL ====
-
-const clickSound = new Audio('click.mp3');
-clickSound.volume = 0.2;
-
-function playClickSound() {
-  clickSound.currentTime = 0;
-  clickSound.play();
-}
-
-// Tambahkan efek suara ke semua tombol
-document.addEventListener('click', (e) => {
-  if (e.target.tagName === 'BUTTON' || e.target.classList.contains('start-button')) {
-    playClickSound();
-  }
-});
-
-// ==== KALKULATOR FISIKA ====
-
-document.addEventListener('DOMContentLoaded', () => {
+  // Inisialisasi kalkulator jika di halaman kalkulator
   const select = document.getElementById('formulaSelect');
   const inputArea = document.getElementById('inputArea');
   const calculateBtn = document.getElementById('calculateBtn');
   const result = document.getElementById('result');
 
-  if (!select || !inputArea || !calculateBtn || !result) return;
+  if (select && inputArea && calculateBtn && result) {
+    select.addEventListener('change', () => {
+      const sel = select.value;
+      inputArea.innerHTML = '';
 
-  select.addEventListener('change', function () {
-    const selected = this.value;
-    inputArea.innerHTML = '';
+      const mapInputs = {
+        ep: ['massa', 'gravitasi', 'tinggi'],
+        ek: ['massa', 'kecepatan'],
+        newton: ['massa', 'percepatan'],
+        glb: ['kecepatan', 'waktu'],
+        tekanan: ['gaya', 'luas'],
+        usaha: ['gaya', 'jarak']
+      };
+      const ph = {
+        massa: 'Massa (kg)',
+        gravitasi: 'Gravitasi (m/s²)',
+        tinggi: 'Tinggi (m)',
+        kecepatan: 'Kecepatan (m/s)',
+        percepatan: 'Percepatan (m/s²)',
+        waktu: 'Waktu (s)',
+        gaya: 'Gaya (N)',
+        luas: 'Luas (m²)',
+        jarak: 'Jarak (m)'
+      };
 
-    const inputs = {
-      ep: ['massa', 'gravitasi', 'tinggi'],
-      ek: ['massa', 'kecepatan'],
-      newton: ['massa', 'percepatan'],
-      glb: ['kecepatan', 'waktu'],
-      tekanan: ['gaya', 'luas'],
-      usaha: ['gaya', 'jarak']
-    };
+      if (mapInputs[sel]) {
+        mapInputs[sel].forEach(id => {
+          const inp = document.createElement('input');
+          inp.type = 'number';
+          inp.id = id;
+          inp.placeholder = ph[id];
+          inputArea.appendChild(inp);
+        });
+      }
+    });
 
-    const placeholders = {
-      massa: 'Massa (kg)',
-      gravitasi: 'Gravitasi (m/s²)',
-      tinggi: 'Tinggi (m)',
-      kecepatan: 'Kecepatan (m/s)',
-      percepatan: 'Percepatan (m/s²)',
-      waktu: 'Waktu (s)',
-      gaya: 'Gaya (N)',
-      luas: 'Luas (m²)',
-      jarak: 'Jarak (m)'
-    };
-
-    if (inputs[selected]) {
-      inputs[selected].forEach(id => {
-        const input = document.createElement('input');
-        input.type = 'number';
-        input.id = id;
-        input.placeholder = placeholders[id];
-        inputArea.appendChild(input);
-      });
-    }
-  });
-
-  function getVal(id) {
-    return parseFloat(document.getElementById(id)?.value) || 0;
+    calculateBtn.addEventListener('click', () => {
+      const sel = select.value;
+      function gv(id) {
+        return parseFloat(document.getElementById(id)?.value) || 0;
+      }
+      let out = '';
+      switch (sel) {
+        case 'ep':
+          out = `Energi Potensial = ${(gv('massa') * gv('gravitasi') * gv('tinggi')).toFixed(2)} J`;
+          break;
+        case 'ek':
+          out = `Energi Kinetik = ${(0.5 * gv('massa') * gv('kecepatan') ** 2).toFixed(2)} J`;
+          break;
+        case 'newton':
+          out = `Gaya = ${(gv('massa') * gv('percepatan')).toFixed(2)} N`;
+          break;
+        case 'glb':
+          out = `Jarak = ${(gv('kecepatan') * gv('waktu')).toFixed(2)} m`;
+          break;
+        case 'tekanan':
+          // hindari pembagian dengan nol
+          if (gv('luas') === 0) {
+            out = 'Luas tidak boleh nol';
+          } else {
+            out = `Tekanan = ${(gv('gaya') / gv('luas')).toFixed(2)} Pa`;
+          }
+          break;
+        case 'usaha':
+          out = `Usaha = ${(gv('gaya') * gv('jarak')).toFixed(2)} J`;
+          break;
+        default:
+          out = 'Silakan pilih dan isi rumus.';
+      }
+      result.textContent = out;
+      playClickSound();
+    });
   }
+});
 
-  calculateBtn.addEventListener('click', () => {
-    const formula = select.value;
-    let output = '';
+// ===== SUARA KLIK =====
+const clickSound = new Audio('click.mp3');
+clickSound.volume = 0.2;
 
-    switch (formula) {
-      case 'ep':
-        output = `Energi Potensial = ${(getVal('massa') * getVal('gravitasi') * getVal('tinggi')).toFixed(2)} J`;
-        break;
-      case 'ek':
-        output = `Energi Kinetik = ${(0.5 * getVal('massa') * getVal('kecepatan') ** 2).toFixed(2)} J`;
-        break;
-      case 'newton':
-        output = `Gaya = ${(getVal('massa') * getVal('percepatan')).toFixed(2)} N`;
-        break;
-      case 'glb':
-        output = `Jarak = ${(getVal('kecepatan') * getVal('waktu')).toFixed(2)} m`;
-        break;
-      case 'tekanan':
-        output = `Tekanan = ${(getVal('gaya') / getVal('luas')).toFixed(2)} Pa`;
-        break;
-      case 'usaha':
-        output = `Usaha = ${(getVal('gaya') * getVal('jarak')).toFixed(2)} J`;
-        break;
-      default:
-        output = 'Silakan pilih dan isi rumus.';
-    }
-
-    result.textContent = output;
+function playClickSound() {
+  clickSound.currentTime = 0;
+  clickSound.play().catch(e => {
+    // fallback jika audio tidak bisa dimainkan
+    // console.log('Audio click gagal: ', e);
   });
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target.tagName === 'BUTTON' || e.target.classList.contains('start-button')) {
+    playClickSound();
+  }
 });

@@ -8,11 +8,13 @@
 html, body {
   height: 100%;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #0d0d0d, #000000);
+  background: url('bg-futuristic.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: #ffffff;
   overflow-x: hidden;
-  background-size: 400% 400%;
-  animation: backgroundShift 30s ease infinite;
+  backdrop-filter: brightness(0.7);
+}
+
 }
 
 @keyframes backgroundShift {
